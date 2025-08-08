@@ -1,17 +1,22 @@
 import React from 'react';
 import { Code, Briefcase, Users, Globe, TrendingUp, Zap } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Skills = () => {
-  const skillCategories = [
+  const { language } = useLanguage();
+  const t = translations[language];
+  
+  const skillCategoriesDE = [
     {
       icon: <Users size={24} />,
       title: "Allgemeine Kompetenzen",
       color: "var(--warm-brown)",
       skills: [
-        { name: "Organisationsentwicklung & Lernprozesse", level: 90 },
-        { name: "Kommunikation & Stakeholder-Arbeit", level: 95 },
-        { name: "Inklusive Methoden & Teamführung", level: 88 },
-        { name: "Zeit- & Projektmanagement", level: 85 }
+        { name: "Organisationsentwicklung & Lernprozesse" },
+        { name: "Kommunikation & Stakeholder-Arbeit" },
+        { name: "Inklusive Methoden & Teamführung" },
+        { name: "Zeit- & Projektmanagement" }
       ]
     },
     {
@@ -19,14 +24,14 @@ const Skills = () => {
       title: "Pädagogische Kompetenzen",
       color: "#8B5A3C",
       skills: [
-        { name: "Unterrichten", level: 95 },
-        { name: "Didaktik", level: 92 },
-        { name: "Lernentwicklung", level: 90 },
-        { name: "Konfliktmanagement", level: 85 },
-        { name: "Kognitive Flexibilität", level: 88 },
-        { name: "Pädagogische Leitung", level: 87 },
-        { name: "Lern- und Bildungsberatung", level: 85 },
-        { name: "Reflexion", level: 90 }
+        { name: "Unterrichten" },
+        { name: "Didaktik" },
+        { name: "Lernentwicklung" },
+        { name: "Konfliktmanagement" },
+        { name: "Kognitive Flexibilität" },
+        { name: "Pädagogische Leitung" },
+        { name: "Lern- und Bildungsberatung" },
+        { name: "Reflexion" }
       ]
     },
     {
@@ -34,24 +39,55 @@ const Skills = () => {
       title: "Technische Kompetenzen",
       color: "#A67C52",
       skills: [
-        { name: "MS Office", level: 90 },
-        { name: "Canva", level: 85 },
-        { name: "monday.com", level: 80 },
-        { name: "Digitale Lernwerkzeuge", level: 88 }
+        { name: "MS Office" },
+        { name: "Canva" },
+        { name: "monday.com" },
+        { name: "Digitale Lernwerkzeuge" }
+      ]
+    },
+  ];
+
+  const skillCategoriesEN = [
+    {
+      icon: <Users size={24} />,
+      title: "General Competencies",
+      color: "var(--warm-brown)",
+      skills: [
+        { name: "Organizational Development & Learning Processes" },
+        { name: "Communication & Stakeholder Work" },
+        { name: "Inclusive Methods & Team Leadership" },
+        { name: "Time & Project Management" }
       ]
     },
     {
-      icon: <Globe size={24} />,
-      title: "Sprachkenntnisse",
-      color: "#D4C4B0",
+      icon: <Briefcase size={24} />,
+      title: "Pedagogical Competencies",
+      color: "#8B5A3C",
       skills: [
-        { name: "Deutsch", level: 100 },
-        { name: "Englisch", level: 90 },
-        { name: "Französisch", level: 85 },
-        { name: "Russisch", level: 30 }
+        { name: "Teaching" },
+        { name: "Didactics" },
+        { name: "Learning Development" },
+        { name: "Conflict Management" },
+        { name: "Cognitive Flexibility" },
+        { name: "Pedagogical Leadership" },
+        { name: "Learning & Educational Consulting" },
+        { name: "Reflection" }
       ]
-    }
+    },
+    {
+      icon: <Code size={24} />,
+      title: "Technical Competencies",
+      color: "#A67C52",
+      skills: [
+        { name: "MS Office" },
+        { name: "Canva" },
+        { name: "monday.com" },
+        { name: "Digital Learning Tools" }
+      ]
+    },
   ];
+
+  const skillCategories = language === 'de' ? skillCategoriesDE : skillCategoriesEN;
 
   const certifications = [
     "Wirtschaft Basics - Deep Dive (Udemy)",
@@ -60,18 +96,17 @@ const Skills = () => {
 
   const tools = [
     "Microsoft Office Suite", "Canva", "monday.com", "SAP", 
-    "Digitale Lernwerkzeuge", "Zoom", "Google Workspace", "Teams"
+    "Digital Learning Tools", "Zoom", "Google Workspace", "Teams"
   ];
 
   return (
     <section id="kompetenzen" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Meine Kompetenzen</h2>
+          <h2 className="section-title text-gradient">{t.skills.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Fundierte pädagogische Fähigkeiten kombiniert mit technischen Kompetenzen 
-            und dem Streben nach strategischer Weiterentwicklung.
+            {t.skills.description}
           </p>
         </div>
 
@@ -104,7 +139,7 @@ const Skills = () => {
 
         <div className="additional-skills">
           <div className="tools-section">
-            <h3 className="additional-title">Tools & Software</h3>
+            <h3 className="additional-title">{t.skills.toolsTitle}</h3>
             <div className="tools-cloud">
               {tools.map((tool, index) => (
                 <span 
@@ -121,22 +156,22 @@ const Skills = () => {
 
         <div className="skills-summary">
           <div className="summary-content">
-            <h3 className="summary-title">Kompetenz-Profil</h3>
+            <h3 className="summary-title">{t.skills.summary.title}</h3>
             <div className="summary-grid">
               <div className="summary-item">
                 <div className="summary-icon">🎯</div>
-                <h4>Strategische Ausrichtung</h4>
-                <p>Entwicklung und Umsetzung langfristiger Visionen mit messbaren Ergebnissen</p>
+                <h4>{t.skills.summary.strategic.title}</h4>
+                <p>{t.skills.summary.strategic.description}</p>
               </div>
               <div className="summary-item">
                 <div className="summary-icon">🚀</div>
-                <h4>Digitale Innovation</h4>
-                <p>Transformation traditioneller Prozesse durch moderne Technologien und Methoden</p>
+                <h4>{t.skills.summary.digital.title}</h4>
+                <p>{t.skills.summary.digital.description}</p>
               </div>
               <div className="summary-item">
                 <div className="summary-icon">👥</div>
-                <h4>Menschenorientierung</h4>
-                <p>Führung und Entwicklung von Teams durch empathische und zielgerichtete Kommunikation</p>
+                <h4>{t.skills.summary.people.title}</h4>
+                <p>{t.skills.summary.people.description}</p>
               </div>
             </div>
           </div>
@@ -228,6 +263,10 @@ const Skills = () => {
         .additional-skills {
           margin-bottom: var(--spacing-2xl);
         }
+        
+        .tools-section {
+          margin-bottom: var(--spacing-lg);
+        }
 
         .additional-title {
           color: var(--text-dark);
@@ -289,7 +328,7 @@ const Skills = () => {
 
         .tools-cloud {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
           gap: var(--spacing-xs);
           justify-items: center;
         }

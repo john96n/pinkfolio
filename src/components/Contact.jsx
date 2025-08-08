@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Linkedin, Send, Clock, CheckCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Contact = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,70 +35,38 @@ const Contact = () => {
     });
   };
 
-  const contactInfo = [
-    {
-      icon: <Mail size={24} />,
-      title: "E-Mail",
-      value: "lisapink99@gmail.com",
-      description: "Für berufliche Anfragen und Kooperationen",
-      action: "mailto:lisapink99@gmail.com"
-    },
-    {
-      icon: <Phone size={24} />,
-      title: "Telefon",
-      value: "+49 176 78516012",
-      description: "Erreichbar für berufliche Gespräche",
-      action: "tel:+4917678516012"
-    },
-    {
-      icon: <MapPin size={24} />,
-      title: "Standort",
-      value: "aktuell RLP",
-      description: "flexibel, den Wohnort zu wechseln",
-      action: null
-    },
-    {
-      icon: <Linkedin size={24} />,
-      title: "LinkedIn",
-      value: "Lisa Pink",
-      description: "Professionelles Netzwerk und Updates",
-      action: "https://www.linkedin.com/in/lisa-pink-b00695354/"
-    }
-  ];
+  const icons = [<Mail size={24} />, <Phone size={24} />, <MapPin size={24} />, <Linkedin size={24} />];
+  const actions = ["mailto:lisapink99@gmail.com", "tel:+4917678516012", null, "https://www.linkedin.com/in/lisa-pink-b00695354/"];
+  const availabilityIcons = ["💼", "🎓", "🚀"];
+  
+  const contactInfo = t.contact.contactItems.map((item, index) => ({
+    icon: icons[index],
+    title: item.title,
+    value: item.value,
+    description: item.description,
+    action: actions[index]
+  }));
 
-  const availability = [
-    {
-      type: "Vollzeit Positionen",
-      status: "Verfügbar ab 2025",
-      icon: "💼"
-    },
-    {
-      type: "MBA-Studium",
-      status: "Start September 2025",
-      icon: "🎓"
-    },
-    {
-      type: "Projektarbeiten",
-      status: "Nach Vereinbarung",
-      icon: "🚀"
-    }
-  ];
+  const availability = t.contact.availabilityItems.map((item, index) => ({
+    type: item.type,
+    status: item.status,
+    icon: availabilityIcons[index]
+  }));
 
   return (
     <section id="kontakt" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Kontakt aufnehmen</h2>
+          <h2 className="section-title text-gradient">{t.contact.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Ich freue mich auf interessante Gespräche über neue berufliche Möglichkeiten 
-            und den Übergang in die Wirtschaft. Lassen Sie uns gerne in Kontakt treten.
+            {t.contact.description}
           </p>
         </div>
 
         <div className="contact-content">
           <div className="contact-info-section">
-            <h3 className="subsection-title">Kontaktinformationen</h3>
+            <h3 className="subsection-title">{t.contact.info}</h3>
             <div className="contact-cards">
               {contactInfo.map((info, index) => (
                 <div 
@@ -124,7 +97,7 @@ const Contact = () => {
             <div className="availability-section">
               <h4 className="availability-title">
                 <Clock size={20} />
-                Verfügbarkeit
+                {t.contact.availability}
               </h4>
               <div className="availability-list">
                 {availability.map((item, index) => (
@@ -141,13 +114,13 @@ const Contact = () => {
           </div>
 
           <div className="contact-form-section">
-            <h3 className="subsection-title">Nachricht senden</h3>
+            <h3 className="subsection-title">{t.contact.form.title}</h3>
             <div className="form-container card">
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="contact-form">
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="name">Name *</label>
+                      <label htmlFor="name">{t.contact.form.name} *</label>
                       <input
                         type="text"
                         id="name"
@@ -159,7 +132,7 @@ const Contact = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="email">E-Mail *</label>
+                      <label htmlFor="email">{t.contact.form.email} *</label>
                       <input
                         type="email"
                         id="email"
@@ -173,7 +146,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="form-group">
-                    <label htmlFor="subject">Betreff *</label>
+                    <label htmlFor="subject">{t.contact.form.subject} *</label>
                     <input
                       type="text"
                       id="subject"
@@ -186,7 +159,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="form-group">
-                    <label htmlFor="message">Nachricht *</label>
+                    <label htmlFor="message">{t.contact.form.message} *</label>
                     <textarea
                       id="message"
                       name="message"
@@ -200,7 +173,7 @@ const Contact = () => {
                   
                   <button type="submit" className="btn btn-primary form-submit">
                     <Send size={20} />
-                    Nachricht senden
+                    {t.contact.form.send}
                   </button>
                 </form>
               ) : (
@@ -208,10 +181,9 @@ const Contact = () => {
                   <div className="success-icon">
                     <CheckCircle size={48} />
                   </div>
-                  <h4>Nachricht erfolgreich gesendet!</h4>
+                  <h4>{t.contact.form.success}</h4>
                   <p>
-                    Vielen Dank für Ihre Nachricht. Ich werde mich so schnell wie möglich 
-                    bei Ihnen melden - in der Regel binnen 24 Stunden.
+                    {t.contact.form.successText}
                   </p>
                 </div>
               )}
@@ -221,19 +193,18 @@ const Contact = () => {
 
         <div className="contact-cta">
           <div className="cta-content">
-            <h3 className="cta-title">Bereit für neue Herausforderungen</h3>
+            <h3 className="cta-title">{t.contact.cta.title}</h3>
             <p className="cta-description">
-              Mit meiner pädagogischen Erfahrung und dem anstehenden MBA-Studium bin ich 
-              bereit für den nächsten Karriereschritt in die Wirtschaft.
+              {t.contact.cta.description}
             </p>
             <div className="cta-actions">
               <a href="mailto:lisapink99@gmail.com" className="btn btn-primary">
                 <Mail size={20} />
-                Direkter Kontakt
+                {t.contact.cta.direct}
               </a>
               <a href="https://www.linkedin.com/in/lisa-pink-b00695354/" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                 <Linkedin size={20} />
-                LinkedIn Profil
+                {t.contact.cta.linkedin}
               </a>
             </div>
           </div>

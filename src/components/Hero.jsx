@@ -1,7 +1,12 @@
 import React from 'react';
 import { ChevronDown, Download, Mail } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Hero = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const scrollToNext = () => {
     const nextSection = document.querySelector('#auszeichnungen');
     if (nextSection) {
@@ -22,18 +27,18 @@ const Hero = () => {
         <div className="hero-content">
           <div className="hero-text">
             <div className="hero-intro fade-in">
-              <span className="hero-greeting">Hallo, ich bin</span>
+              <span className="hero-greeting">{t.hero.greeting}</span>
               <h1 className="hero-name text-gradient">Lisa Pink</h1>
               <div className="hero-titles">
                 <div className="title-row">
                   <h2 className="hero-title">
-                    Fernstudium im General Management
+                    {t.hero.title1}
                     <span className="hero-degree">(MBA)</span>
                   </h2>
                 </div>
                 <div className="title-row">
                   <h2 className="hero-title">
-                    Abgeschlossenes Lehramtsstudium
+                    {t.hero.title2}
                     <span className="hero-degree">(M.Ed.)</span>
                   </h2>
                 </div>
@@ -42,24 +47,17 @@ const Hero = () => {
 
             <div className="hero-description slide-in-left">
               <p>
-                Ich habe Grundschulpädagogik mit dem Schwerpunkt Anglistik studiert und stand 
-                die letzten Jahre als Lehrkraft vor der Klasse. Dabei ging es mir nie nur um 
-                Unterrichtsinhalte – sondern vor allem darum, Potenziale zu erkennen, Menschen 
-                zu motivieren und Entwicklung aktiv zu begleiten.
+                {t.hero.description1}
               </p>
               <p>
-                Irgendwann habe ich gemerkt: Genau das reizt mich auch über die Schule hinaus. 
-                Ich wollte verstehen, wie Lernen, Veränderung und Entwicklung in Organisationen 
-                funktionieren – und wie man diese Prozesse strategisch in einem unternehmerischen 
-                Kontext mitgestalten kann. Das hat mich zu einem MBA-Studium geführt, um meine 
-                pädagogischen Stärken mit fundiertem wirtschaftlichem Wissen zu verbinden.
+                {t.hero.description2}
               </p>
             </div>
 
             <div className="hero-actions slide-in-right">
               <button onClick={scrollToContact} className="btn btn-primary">
                 <Mail size={20} />
-                Kontakt aufnehmen
+                {t.hero.contact}
               </button>
 
             </div>
@@ -67,15 +65,15 @@ const Hero = () => {
             <div className="hero-stats">
               <div className="stat-item">
                 <span className="stat-number">4+</span>
-                <span className="stat-label">Jahre Lehrerfahrung</span>
+                <span className="stat-label">{t.hero.stats.experience}</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">2</span>
-                <span className="stat-label">Hochschulabschlüsse</span>
+                <span className="stat-label">{t.hero.stats.degrees}</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">4</span>
-                <span className="stat-label">Sprachen</span>
+                <span className="stat-label">{t.hero.stats.languages}</span>
               </div>
             </div>
           </div>
@@ -157,14 +155,14 @@ const Hero = () => {
         }
 
         .hero-title {
-          font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+          font-size: clamp(1.1rem, 2.2vw, 1.5rem);
           color: var(--text-dark);
           margin-bottom: var(--spacing-xs);
           font-weight: 500;
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          flex-wrap: wrap;
+          gap: 6px;
+          flex-wrap: nowrap;
         }
 
         .title-row {
@@ -174,14 +172,16 @@ const Hero = () => {
 
         .hero-degree {
           font-family: var(--font-sans);
-          font-size: 0.85rem;
+          font-size: 0.75rem;
           color: var(--warm-brown);
           font-weight: 600;
           background: var(--secondary-beige);
-          padding: 0.2rem 0.5rem;
-          border-radius: 12px;
+          padding: 0.2rem 0.4rem;
+          border-radius: 10px;
           border: 1px solid var(--accent-beige);
           line-height: 1;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .hero-description {

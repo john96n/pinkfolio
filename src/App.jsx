@@ -1,4 +1,6 @@
 import React from 'react';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { translations } from './data/translations';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Strengths from './components/Strengths';
@@ -9,7 +11,10 @@ import Certifications from './components/Certifications';
 import Interests from './components/Interests';
 import Contact from './components/Contact';
 
-function App() {
+const AppContent = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <div className="App">
       <Navbar />
@@ -23,21 +28,21 @@ function App() {
         <Interests />
         <Contact />
       </main>
-      
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-text">
-              <p>&copy; 2025 Lisa Pink. Alle Rechte vorbehalten.</p>
-              <p>Erstellt mit Leidenschaft für Exzellenz und Innovation.</p>
-            </div>
-            <div className="footer-links">
-              <a href="#" className="footer-link">Impressum</a>
-              <a href="#" className="footer-link">Datenschutz</a>
-              <a href="#" className="footer-link">LinkedIn</a>
-            </div>
+    
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-content">
+          <div className="footer-text">
+            <p>&copy; 2025 Lisa Pink. {t.footer.rights}</p>
+            <p>{t.footer.tagline}</p>
+          </div>
+          <div className="footer-links">
+            <a href="#" className="footer-link">{t.footer.imprint}</a>
+            <a href="#" className="footer-link">{t.footer.privacy}</a>
+            <a href="https://www.linkedin.com/in/lisa-pink-b00695354/" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
           </div>
         </div>
+      </div>
         
         <style jsx>{`
           .footer {
@@ -107,6 +112,14 @@ function App() {
         `}</style>
       </footer>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 

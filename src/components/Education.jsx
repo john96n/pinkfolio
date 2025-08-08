@@ -1,77 +1,12 @@
 import React from 'react';
 import { GraduationCap, Calendar, MapPin, Award, BookOpen, Users } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Education = () => {
-  const education = [
-    {
-      degree: "Master of Business Administration (MBA)",
-      field: "General Management",
-      institution: "Fresenius",
-      location: "Deutschland",
-      period: "Beginn September 2025",
-      status: "Fernstudium",
-      grade: "laufend",
-      description: "Strategische Weiterentwicklung mit fundiertem wirtschaftlichem Wissen zur Verbindung pädagogischer Stärken mit unternehmerischen Kompetenzen.",
-      highlights: [
-        "Fernstudium parallel zur beruflichen Tätigkeit",
-        "Fokus auf strategisches Management und Unternehmensführung",
-        "Verbindung von Pädagogik und Wirtschaft",
-        "Vorbereitung auf Führungsaufgaben in Organisationen"
-      ],
-      modules: ["Strategisches Management", "Unternehmensführung", "Organisationsentwicklung", "Change Management", "Digitale Transformation"]
-    },
-    {
-      degree: "2. Staatsexamen",
-      field: "Grundschullehramt",
-      institution: "Friedrich-Ebert-Schule / Studienseminar Neuwied",
-      location: "Neuwied, Deutschland",
-      period: "2023 - 2025",
-      status: "Referendariat",
-      grade: "erfolgreich abgeschlossen",
-      description: "Praktische Ausbildung zur Grundschullehrerin mit Schwerpunkt auf moderne Unterrichtsmethoden und digitale Integration.",
-      highlights: [
-        "Erfolgreiches Referendariat mit praktischer Unterrichtserfahrung",
-        "Integration digitaler Werkzeuge in den Unterricht",
-        "Arbeit in multiprofessionellen Teams",
-        "Entwicklung innovativer Unterrichtskonzepte"
-      ],
-      modules: ["Unterrichtspraxis", "Klassenführung", "Digitale Medien", "Schulrecht", "Pädagogische Diagnostik"]
-    },
-    {
-      degree: "Bachelor & Master of Education",
-      field: "Grundschullehramt (Schwerpunkte: Englisch & Ev. Religionslehre)",
-      institution: "Universität Koblenz",
-      location: "Koblenz, Deutschland",
-      period: "2018 - 2023",
-      status: "Vollzeitstudium",
-      grade: "erfolgreich abgeschlossen",
-      description: "Grundstudium der Grundschulpädagogik mit Spezialisierung auf Anglistik und evangelische Religionslehre.",
-      highlights: [
-        "Schwerpunkt Anglistik mit fundierter Sprachkompetenz",
-        "Evangelische Religionslehre als zweites Fach",
-        "Praktische Erfahrungen in verschiedenen Grundschulen",
-        "Wissenschaftliche Auseinandersetzung mit Grundschulpädagogik"
-      ],
-      modules: ["Grundschulpädagogik", "Anglistik", "Evangelische Religionslehre", "Bildungswissenschaften", "Fachdidaktik"]
-    },
-    {
-      degree: "Allgemeine Hochschulreife",
-      field: "Leistungskurse: Englisch, Französisch, Erdkunde",
-      institution: "Gymnasium am Römerkastell",
-      location: "Alzey, Deutschland",
-      period: "bis 2018",
-      status: "Abgeschlossen",
-      grade: "erfolgreich abgeschlossen",
-      description: "Gymnasiale Ausbildung mit sprachlichem Schwerpunkt und geographischen Kenntnissen.",
-      highlights: [
-        "Leistungskurs Englisch - Grundlage für spätere Spezialisierung",
-        "Leistungskurs Französisch - internationale Sprachkompetenz",
-        "Leistungskurs Erdkunde - analytisches und vernetztes Denken",
-        "Solide Grundlage für das Lehramtsstudium"
-      ],
-      modules: ["Englisch (LK)", "Französisch (LK)", "Erdkunde (LK)", "Deutsch", "Mathematik"]
-    }
-  ];
+  const { language } = useLanguage();
+  const t = translations[language];
+  const education = t.education.items;
 
   const additionalEducation = [
     {
@@ -92,11 +27,10 @@ const Education = () => {
     <section id="bildung" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Bildungsweg</h2>
+          <h2 className="section-title text-gradient">{t.education.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Meine akademische Laufbahn zeigt einen klaren Fokus auf Grundschulpädagogik 
-            und die strategische Weiterentwicklung hin zu wirtschaftlichen Kompetenzen.
+            {t.education.description}
           </p>
         </div>
 
@@ -140,7 +74,7 @@ const Education = () => {
                 <p className="education-description">{edu.description}</p>
 
                 <div className="education-highlights">
-                  <h4>Besondere Leistungen:</h4>
+                  <h4>{t.education.highlights}</h4>
                   <ul className="highlights-list">
                     {edu.highlights.map((highlight, idx) => (
                       <li key={idx} className="highlight-item">
@@ -152,7 +86,7 @@ const Education = () => {
                 </div>
 
                 <div className="education-modules">
-                  <h4>Schwerpunkte:</h4>
+                  <h4>{t.education.modules}</h4>
                   <div className="modules-tags">
                     {edu.modules.map((module, idx) => (
                       <span key={idx} className="module-tag">
@@ -170,12 +104,9 @@ const Education = () => {
 
         <div className="education-summary">
           <div className="summary-content">
-            <h3 className="summary-title">Bildungsphilosophie</h3>
+            <h3 className="summary-title">{t.education.philosophy.title}</h3>
             <p className="summary-text">
-              Bildung ist für mich ein lebenslanger Prozess der persönlichen und 
-              beruflichen Entwicklung. Die Verbindung von theoretischem Wissen mit 
-              praktischer Anwendung sowie die kontinuierliche Weiterentwicklung von 
-              der Pädagogik hin zur Wirtschaft stehen im Zentrum meines Lernansatzes.
+              {t.education.philosophy.text}
             </p>
 
           </div>
@@ -407,6 +338,7 @@ const Education = () => {
           padding: var(--spacing-xl);
           box-shadow: 0 8px 30px var(--shadow-light);
           position: relative;
+          margin-top: var(--spacing-2xl);
         }
 
         .education-summary::before {

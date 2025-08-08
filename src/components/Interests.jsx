@@ -1,54 +1,30 @@
 import React from 'react';
 import { Book, Camera, Plane, Music, Heart, Globe, MapPin, Star } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Interests = () => {
-  const hobbies = [
-    {
-      icon: <Plane size={28} />,
-      title: "Internationale Reisen",
-      description: "Leidenschaft für das Entdecken neuer Kulturen und den kulturellen Austausch mit Menschen aus aller Welt.",
-      details: ["Kultureller Austausch", "Internationale Perspektiven", "Sprachpraxis vor Ort"],
-      color: "var(--warm-brown)"
-    },
-    {
-      icon: <Heart size={28} />,
-      title: "Ausdauersport",
-      description: "Aktive Lebensweise durch vielseitige Sportarten für körperliche Fitness und mentale Balance.",
-      details: ["Fitness-Boxen", "Laufen", "Radsport", "Krafttraining"],
-      color: "#8B5A3C"
-    }
-  ];
+  const { language } = useLanguage();
+  const t = translations[language];
+  const icons = [<Plane size={28} />, <Heart size={28} />];
+  const colors = ["var(--warm-brown)", "#8B5A3C"];
+  const flags = ["🇩🇪", "🇬🇧", "🇫🇷", "🇷🇺"];
+  
+  const hobbies = t.interests.hobbiesItems.map((hobby, index) => ({
+    icon: icons[index],
+    title: hobby.title,
+    description: hobby.description,
+    details: hobby.details,
+    color: colors[index]
+  }));
 
-  const languages = [
-    {
-      language: "Deutsch",
-      level: "Muttersprache",
-      proficiency: 100,
-      certification: "C2 Niveau",
-      icon: "🇩🇪"
-    },
-    {
-      language: "Englisch",
-      level: "Sehr gut",
-      proficiency: 90,
-      certification: "Fließend",
-      icon: "🇬🇧"
-    },
-    {
-      language: "Französisch",
-      level: "Sehr gut",
-      proficiency: 85,
-      certification: "B2 Niveau",
-      icon: "🇫🇷"
-    },
-    {
-      language: "Russisch",
-      level: "Grundkenntnisse",
-      proficiency: 30,
-      certification: "A1 Niveau",
-      icon: "🇷🇺"
-    }
-  ];
+  const languages = t.interests.languageItems.map((lang, index) => ({
+    language: lang.language,
+    level: lang.level,
+    proficiency: lang.proficiency,
+    certification: lang.certification,
+    icon: flags[index]
+  }));
 
   const travelExperiences = [
     {
@@ -81,17 +57,16 @@ const Interests = () => {
     <section id="interessen" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Interessen & Persönlichkeit</h2>
+          <h2 className="section-title text-gradient">{t.interests.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Meine Interessen und Sprachkenntnisse spiegeln meine Offenheit für neue 
-            Kulturen und meine Begeisterung für körperliche Aktivität wider.
+            {t.interests.description}
           </p>
         </div>
 
         <div className="interests-content">
           <div className="hobbies-section">
-            <h3 className="subsection-title">Hobbies & Leidenschaften</h3>
+            <h3 className="subsection-title">{t.interests.hobbies}</h3>
             <div className="hobbies-grid">
               {hobbies.map((hobby, index) => (
                 <div 
@@ -120,7 +95,7 @@ const Interests = () => {
           </div>
 
           <div className="languages-section">
-            <h3 className="subsection-title">Sprachkenntnisse</h3>
+            <h3 className="subsection-title">{t.interests.languages}</h3>
             <div className="languages-grid">
               {languages.map((lang, index) => (
                 <div 
@@ -161,27 +136,27 @@ const Interests = () => {
 
         <div className="personality-summary">
           <div className="summary-content">
-            <h3 className="summary-title">Persönlichkeitsprofil</h3>
+            <h3 className="summary-title">{t.interests.personality.title}</h3>
             <div className="personality-traits">
               <div className="trait-item">
                 <div className="trait-icon">🎯</div>
-                <h4>Zielorientiert</h4>
-                <p>Klare Fokussierung auf berufliche Weiterentwicklung und den Wechsel in die Wirtschaft</p>
+                <h4>{t.interests.personality.goalOriented.title}</h4>
+                <p>{t.interests.personality.goalOriented.description}</p>
               </div>
               <div className="trait-item">
                 <div className="trait-icon">🌍</div>
-                <h4>Weltoffen</h4>
-                <p>Interesse an anderen Kulturen und Sprachen durch internationale Reisen</p>
+                <h4>{t.interests.personality.worldly.title}</h4>
+                <p>{t.interests.personality.worldly.description}</p>
               </div>
               <div className="trait-item">
                 <div className="trait-icon">⚖️</div>
-                <h4>Ausgeglichen</h4>
-                <p>Balance zwischen beruflicher Entwicklung und sportlicher Aktivität</p>
+                <h4>{t.interests.personality.balanced.title}</h4>
+                <p>{t.interests.personality.balanced.description}</p>
               </div>
               <div className="trait-item">
                 <div className="trait-icon">💪</div>
-                <h4>Aktiv</h4>
-                <p>Körperliche Fitness und Ausdauer als Grundlage für mentale Stärke</p>
+                <h4>{t.interests.personality.active.title}</h4>
+                <p>{t.interests.personality.active.description}</p>
               </div>
             </div>
           </div>

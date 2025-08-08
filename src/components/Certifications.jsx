@@ -1,36 +1,32 @@
 import React from 'react';
 import { Award, Calendar, ExternalLink, Car, FileText, Shield } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Certifications = () => {
-  const certifications = [
-    {
-      icon: <Award size={24} />,
-      title: "Wirtschaft Basics - Deep Dive / BWL, VWL, Psychologie",
-      issuer: "Udemy",
-      date: "",
-      type: "Online-Zertifikat",
-      description: "Fundierte Grundlagen in Betriebswirtschaftslehre, Volkswirtschaftslehre und Psychologie für den strategischen Wechsel in die Wirtschaft.",
-      link: "",
-      color: "var(--warm-brown)"
-    }
-  ];
+  const { language } = useLanguage();
+  const t = translations[language];
+  const certificationsData = t.certifications.items;
+  const additionalData = t.certifications.additionalItems;
 
-  const additionalDocuments = [
-    {
-      icon: <Car size={24} />,
-      title: "Führerschein Klasse B",
-      description: "Berechtigung zum Führen von Kraftfahrzeugen",
-      date: "vorhanden",
-      type: "Fahrerlaubnis"
-    },
-    {
-      icon: <Shield size={24} />,
-      title: "Sportbootführerschein",
-      description: "Berechtigung zum Führen von Sportbooten",
-      date: "vorhanden",
-      type: "Sportlizenz"
-    }
-  ];
+  const certifications = certificationsData.map(cert => ({
+    icon: <Award size={24} />,
+    title: cert.title,
+    issuer: cert.issuer,
+    date: "",
+    type: cert.type,
+    description: cert.description,
+    link: "",
+    color: "var(--warm-brown)"
+  }));
+
+  const additionalDocuments = additionalData.map((doc, index) => ({
+    icon: index === 0 ? <Car size={24} /> : <Shield size={24} />,
+    title: doc.title,
+    description: doc.description,
+    date: doc.date,
+    type: doc.type
+  }));
 
   const awards = [
     {
@@ -51,16 +47,15 @@ const Certifications = () => {
     <section id="zertifikate" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Zertifikate & Weiteres</h2>
+          <h2 className="section-title text-gradient">{t.certifications.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Meine Qualifikationen und Zertifikate spiegeln den kontinuierlichen Lernprozess 
-            und die strategische Weiterentwicklung von der Pädagogik hin zur Wirtschaft wider.
+            {t.certifications.description}
           </p>
         </div>
 
         <div className="certifications-section">
-          <h3 className="subsection-title">Professionelle Zertifizierungen</h3>
+          <h3 className="subsection-title">{t.certifications.professional}</h3>
           <div className="certifications-grid">
             {certifications.map((cert, index) => (
               <div 
@@ -91,7 +86,7 @@ const Certifications = () => {
         </div>
 
         <div className="additional-section">
-          <h3 className="subsection-title">Weitere Qualifikationen</h3>
+          <h3 className="subsection-title">{t.certifications.additional}</h3>
           <div className="additional-grid">
             {additionalDocuments.map((doc, index) => (
               <div 
@@ -134,9 +129,7 @@ const Certifications = () => {
             </div>
           <div className="summary-note">
             <p>
-              "Lebenslanges Lernen ist der Schlüssel zu anhaltender Exzellenz. 
-              Ich investiere kontinuierlich in meine Weiterbildung, um stets auf 
-              dem neuesten Stand der Entwicklungen zu bleiben."
+              "{t.certifications.quote}"
             </p>
           </div>
         </div>

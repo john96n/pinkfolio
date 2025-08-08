@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, toggleLanguage } = useLanguage();
+  const t = translations[language];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,14 +19,14 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { href: '#uber-mich', label: 'Über mich' },
-    { href: '#auszeichnungen', label: 'Auszeichnungen' },
-    { href: '#erfahrung', label: 'Erfahrung' },
-    { href: '#bildung', label: 'Bildung' },
-    { href: '#kompetenzen', label: 'Kompetenzen' },
-    { href: '#zertifikate', label: 'Zertifikate' },
-    { href: '#interessen', label: 'Interessen' },
-    { href: '#kontakt', label: 'Kontakt' }
+    { href: '#uber-mich', label: t.nav.about },
+    { href: '#auszeichnungen', label: t.nav.strengths },
+    { href: '#erfahrung', label: t.nav.experience },
+    { href: '#bildung', label: t.nav.education },
+    { href: '#kompetenzen', label: t.nav.skills },
+    { href: '#zertifikate', label: t.nav.certifications },
+    { href: '#interessen', label: t.nav.interests },
+    { href: '#kontakt', label: t.nav.contact }
   ];
 
   const scrollToSection = (href) => {
@@ -54,6 +58,24 @@ const Navbar = () => {
                 {item.label}
               </button>
             ))}
+            
+            {/* Language Toggle */}
+            <div className="language-toggle-group">
+              <button 
+                onClick={() => language !== 'de' && toggleLanguage()} 
+                className={`language-btn ${language === 'de' ? 'active' : ''}`}
+                aria-label="Deutsch"
+              >
+                DE
+              </button>
+              <button 
+                onClick={() => language !== 'en' && toggleLanguage()} 
+                className={`language-btn ${language === 'en' ? 'active' : ''}`}
+                aria-label="English"
+              >
+                EN
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -77,6 +99,24 @@ const Navbar = () => {
               {item.label}
             </button>
           ))}
+          
+          {/* Mobile Language Toggle */}
+          <div className="mobile-language-toggle-group">
+            <button 
+              onClick={() => language !== 'de' && toggleLanguage()} 
+              className={`mobile-language-btn ${language === 'de' ? 'active' : ''}`}
+              aria-label="Deutsch"
+            >
+              DE
+            </button>
+            <button 
+              onClick={() => language !== 'en' && toggleLanguage()} 
+              className={`mobile-language-btn ${language === 'en' ? 'active' : ''}`}
+              aria-label="English"
+            >
+              EN
+            </button>
+          </div>
         </div>
       </div>
 
@@ -165,6 +205,78 @@ const Navbar = () => {
 
         .nav-link:hover::after {
           width: 100%;
+        }
+
+        .language-toggle-group {
+          display: flex;
+          align-items: center;
+          border: 1px solid var(--accent-beige);
+          border-radius: 20px;
+          overflow: hidden;
+          background: var(--secondary-beige);
+        }
+
+        .language-btn {
+          padding: 0.5rem 0.8rem;
+          background: transparent;
+          border: none;
+          color: var(--warm-brown);
+          font-family: var(--font-sans);
+          font-size: 0.85rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          min-width: 45px;
+        }
+
+        .language-btn:hover:not(.active) {
+          background: var(--accent-beige);
+        }
+
+        .language-btn.active {
+          background: var(--warm-brown);
+          color: white;
+        }
+
+        .language-btn:not(:last-child) {
+          border-right: 1px solid var(--accent-beige);
+        }
+
+        .mobile-language-toggle-group {
+          display: flex;
+          align-items: center;
+          border: 1px solid var(--accent-beige);
+          border-radius: 20px;
+          overflow: hidden;
+          background: var(--secondary-beige);
+          margin: 0.5rem 1rem 1rem;
+        }
+
+        .mobile-language-btn {
+          padding: 1rem 1.5rem;
+          background: transparent;
+          border: none;
+          color: var(--warm-brown);
+          font-family: var(--font-sans);
+          font-size: 0.9rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          flex: 1;
+          text-align: center;
+        }
+
+        .mobile-language-btn:hover:not(.active) {
+          background: var(--accent-beige);
+        }
+
+        .mobile-language-btn.active {
+          background: var(--warm-brown);
+          color: white;
+        }
+
+        .mobile-language-btn:not(:last-child) {
+          border-right: 1px solid var(--accent-beige);
         }
 
         .mobile-menu-btn {

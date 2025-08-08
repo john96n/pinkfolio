@@ -1,79 +1,21 @@
 import React from 'react';
 import { Calendar, MapPin, Briefcase, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Experience = () => {
-  const experiences = [
-    {
-      position: "Grundschullehrerin (befristet)",
-      company: "Grundschulen in Rheinland-Pfalz",
-      location: "Rheinland-Pfalz, Deutschland",
-      period: "2021 - 2025",
-      type: "Vollzeit",
-      description: "Klassenleitung und Fachlehrerin innerhalb multiprofessioneller Teams mit Fokus auf individuelle Lernentwicklung und digitale Integration.",
-      achievements: [
-        "Klassenleitung und Fachlehrerin innerhalb multiprofessioneller Teams",
-        "Integration digitaler Werkzeuge zur Unterstützung individueller Lernbedürfnisse",
-        "Planung und Durchführung von extracurricularen Aktivitäten",
-        "Erfolgreiche Umsetzung innovativer Unterrichtsmethoden"
-      ],
-      skills: ["Klassenleitung", "Digitale Tools", "Individualförderung", "Teamarbeit"]
-    },
-    {
-      position: "Praktikum – Social Media & Marketing",
-      company: "JANKO.MEDIA",
-      location: "Lahnstein, Deutschland",
-      period: "2025",
-      type: "Praktikum (200h)",
-      description: "Umfassende Einblicke in die Medienproduktion und das Marketing mit praktischer Erfahrung in Content-Erstellung und Projektmanagement.",
-      achievements: [
-        "Medien- & Content-Produktion: Planung, Aufnahme und Bearbeitung von Video- und Fotokampagnen",
-        "Marketing & Social Media: Entwicklung kreativer Inhalte für digitale Kanäle",
-        "Projektmanagement: Einblicke in die Koordination von Medienprojekten zur Markenpräsentation",
-        "Praktische Anwendung digitaler Marketing-Tools"
-      ],
-      skills: ["Content-Produktion", "Social Media Marketing", "Projektkoordination", "Kreative Gestaltung"]
-    },
-    {
-      position: "SAP-basierte Datenpflege & Finanz-Controlling",
-      company: "Universitätsmedizin Mainz",
-      location: "Mainz, Deutschland",
-      period: "2017 - 2023",
-      type: "Studentische Tätigkeit",
-      description: "Verantwortung für die systematische Datenpflege und Unterstützung im Finanz-Controlling mit SAP-Systemen.",
-      achievements: [
-        "Zuverlässige SAP-basierte Datenpflege und -verwaltung",
-        "Unterstützung des Finanz-Controlling-Teams",
-        "Entwicklung effizienter Arbeitsabläufe",
-        "Hohe Datenqualität und Genauigkeit"
-      ],
-      skills: ["SAP", "Datenmanagement", "Finanz-Controlling", "Systematisches Arbeiten"]
-    },
-    {
-      position: "Service & Support (verschiedene Bereiche)",
-      company: "Verschiedene Unternehmen",
-      location: "Deutschland",
-      period: "2017 - 2023",
-      type: "Studentische Tätigkeiten",
-      description: "Vielseitige Erfahrungen im Service-Bereich mit Kundenbetreuung, Buchungsmanagement und Gastronomieerfahrung.",
-      achievements: [
-        "Gäste- und Buchungsmanagement (Ferienwohnungen)",
-        "Service-Fachkraft (Gastronomie und Einzelhandel in der Modebranche)",
-        "Kundenorientierte Betreuung und Beratung",
-        "Flexibilität und Anpassungsfähigkeit in verschiedenen Branchen"
-      ],
-      skills: ["Kundenservice", "Buchungsmanagement", "Gastronomieerfahrung", "Flexibilität"]
-    }
-  ];
+  const { language } = useLanguage();
+  const t = translations[language];
+  const experiences = t.experience.items;
 
   return (
     <section id="erfahrung" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Berufserfahrung & Praktika</h2>
+          <h2 className="section-title text-gradient">{t.experience.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Meine berufliche Laufbahn zeigt eine stetige Entwicklung von der Pädagogik hin zu 
-            strategischen und wirtschaftlichen Bereichen, unterstützt durch vielseitige praktische Erfahrungen.
+            {t.experience.description}
           </p>
         </div>
 
@@ -113,7 +55,7 @@ const Experience = () => {
                 <p className="experience-description">{exp.description}</p>
 
                 <div className="experience-achievements">
-                  <h4>Wichtigste Erfolge:</h4>
+                  <h4>{t.experience.achievements}</h4>
                   <ul className="achievements-list">
                     {exp.achievements.map((achievement, idx) => (
                       <li key={idx} className="achievement-item">
@@ -125,7 +67,7 @@ const Experience = () => {
                 </div>
 
                 <div className="experience-skills">
-                  <h4>Eingesetzte Kompetenzen:</h4>
+                  <h4>{t.experience.skills}</h4>
                   <div className="skills-tags">
                     {exp.skills.map((skill, idx) => (
                       <span key={idx} className="skill-tag">
@@ -143,19 +85,19 @@ const Experience = () => {
           <div className="summary-stats">
             <div className="stat-item">
               <span className="stat-number">4+</span>
-              <span className="stat-label">Jahre Lehrerfahrung</span>
+              <span className="stat-label">{t.experience.stats.teaching}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">4</span>
-              <span className="stat-label">Verschiedene Branchen</span>
+              <span className="stat-label">{t.experience.stats.industries}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">200h</span>
-              <span className="stat-label">Marketing Praktikum</span>
+              <span className="stat-label">{t.experience.stats.internship}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">6+</span>
-              <span className="stat-label">Jahre Nebentätigkeiten</span>
+              <span className="stat-label">{t.experience.stats.experience}</span>
             </div>
           </div>
         </div>

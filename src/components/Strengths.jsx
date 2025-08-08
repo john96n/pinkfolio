@@ -1,56 +1,29 @@
 import React from 'react';
 import { Brain, Target, Users, Lightbulb, Award, TrendingUp } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Strengths = () => {
-  const strengths = [
-    {
-      icon: <Brain size={32} />,
-      title: "Kognitive Flexibilität",
-      description: "In meinen vergangenen Berufserfahrungen habe ich mich durch schnelles Reindenken als Fast Learner mit einer strukturierten Herangehensweise bewiesen.",
-      highlights: ["Fast Learning", "Strukturierte Herangehensweise", "Anpassungsfähigkeit"]
-    },
-    {
-      icon: <Users size={32} />,
-      title: "Kommunikativ & lösungsorientiert",
-      description: "In Zusammenarbeit mit multiprofessionellen Teams bewege ich mich sicher in der Zusammenarbeit und den organisatorischen Anforderungen.",
-      highlights: ["Multiprofessionelle Teams", "Organisationstalent", "Lösungsorientierung"]
-    },
-    {
-      icon: <Target size={32} />,
-      title: "Didaktik & Unterrichten",
-      description: "Als Grundschullehrerin gehörte es zu meinen täglichen Aufgaben Lerngruppen zu leiten und dabei gleichzeitig auf eine individuelle Lernentwicklung einzugehen.",
-      highlights: ["Gruppenleitung", "Individuelle Förderung", "Lernentwicklung"]
-    },
-    {
-      icon: <Lightbulb size={32} />,
-      title: "Digitale Integration",
-      description: "Digitale Tools dienen mir als omnipräsentes Instrument zur Unterstützung individueller Lernbedürfnisse und moderner Unterrichtsgestaltung.",
-      highlights: ["Digitale Tools", "E-Learning", "Technologie-Integration"]
-    },
-    {
-      icon: <Award size={32} />,
-      title: "Teamführung",
-      description: "Erfahrung in der Leitung von Lerngruppen und der Koordination mit multiprofessionellen Teams in verschiedenen Kontexten.",
-      highlights: ["Klassenleitung", "Teamkoordination", "Führungsverantwortung"]
-    },
-    {
-      icon: <TrendingUp size={32} />,
-      title: "Potenzialentwicklung",
-      description: "Meine Leidenschaft liegt darin, Potenziale zu erkennen, Menschen zu motivieren und Entwicklung aktiv zu begleiten.",
-      highlights: ["Potenzialerkennung", "Motivation", "Entwicklungsbegleitung"]
-    }
-  ];
+  const { language } = useLanguage();
+  const t = translations[language];
+  
+  const icons = [<Brain size={32} />, <Users size={32} />, <Target size={32} />, <Lightbulb size={32} />, <Award size={32} />, <TrendingUp size={32} />];
+  
+  const strengths = t.strengths.items.map((item, index) => ({
+    icon: icons[index],
+    title: item.title,
+    description: item.description,
+    highlights: item.highlights
+  }));
 
   return (
     <section id="auszeichnungen" className="section">
       <div className="container">
         <div className="section-header text-center">
-          <h2 className="section-title text-gradient">Was mich auszeichnet</h2>
+          <h2 className="section-title text-gradient">{t.strengths.title}</h2>
           <div className="decorative-line"></div>
           <p className="section-description">
-            Als erfahrene Grundschullehrerin mit fundierten pädagogischen Fähigkeiten und 
-            dem Willen zur strategischen Weiterentwicklung bringe ich eine einzigartige 
-            Mischung aus Praxiserfahrung und zukunftsorientiertem Denken mit.
+            {t.strengths.description}
           </p>
         </div>
 
@@ -77,27 +50,27 @@ const Strengths = () => {
 
         <div className="philosophy-section">
           <div className="philosophy-content">
-            <h3 className="philosophy-title">Meine Arbeitsphilosophie</h3>
+            <h3 className="philosophy-title">{t.strengths.philosophy.title}</h3>
             <div className="philosophy-grid">
               <div className="philosophy-item">
                 <div className="philosophy-number">01</div>
                 <div>
-                  <h4>Potentiale entdecken</h4>
-                  <p>Menschen motivieren und ihre individuelle Entwicklung aktiv begleiten</p>
+                  <h4>{t.strengths.philosophy.item1.title}</h4>
+                  <p>{t.strengths.philosophy.item1.description}</p>
                 </div>
               </div>
               <div className="philosophy-item">
                 <div className="philosophy-number">02</div>
                 <div>
-                  <h4>Strategisch denken</h4>
-                  <p>Lern- und Veränderungsprozesse in Organisationen verstehen und mitgestalten</p>
+                  <h4>{t.strengths.philosophy.item2.title}</h4>
+                  <p>{t.strengths.philosophy.item2.description}</p>
                 </div>
               </div>
               <div className="philosophy-item">
                 <div className="philosophy-number">03</div>
                 <div>
-                  <h4>Brücken bauen</h4>
-                  <p>Pädagogische Stärken mit wirtschaftlichem Wissen für innovative Lösungen verbinden</p>
+                  <h4>{t.strengths.philosophy.item3.title}</h4>
+                  <p>{t.strengths.philosophy.item3.description}</p>
                 </div>
               </div>
             </div>
