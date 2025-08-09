@@ -370,7 +370,7 @@ export const translations = {
         },
         {
           title: "Telefon",
-          value: "+49 176 78516012",
+          value: "Auf Anfrage",
           description: "Verfügbar für berufliche Gespräche"
         },
         {
@@ -833,7 +833,7 @@ export const translations = {
         },
         {
           title: "Phone",
-          value: "+49 176 78516012",
+          value: "Upon request",
           description: "Available for professional conversations"
         },
         {

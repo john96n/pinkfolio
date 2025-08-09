@@ -36,7 +36,7 @@ const Contact = () => {
   };
 
   const icons = [<Mail size={24} />, <Phone size={24} />, <MapPin size={24} />, <Linkedin size={24} />];
-  const actions = ["mailto:lisapink99@gmail.com", "tel:+4917678516012", null, "https://www.linkedin.com/in/lisa-pink-b00695354/"];
+  const actions = ["mailto:lisapink99@gmail.com", null, null, "https://www.linkedin.com/in/lisa-pink-b00695354/"];
   const availabilityIcons = ["💼", "🎓", "🚀"];
   
   const contactInfo = t.contact.contactItems.map((item, index) => ({
