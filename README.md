@@ -1,3 +1,15 @@
+## EmailJS Konfiguration
+
+Um das Kontaktformular per EmailJS zu versenden, lege eine `.env` im Projektroot an mit:
+
+```
+VITE_EMAILJS_PUBLIC_KEY=dein_public_key
+VITE_EMAILJS_SERVICE_ID=dein_service_id
+VITE_EMAILJS_TEMPLATE_ID=dein_template_id
+```
+
+Diese Variablen werden in `src/components/Contact.jsx` genutzt. Die Werte bekommst du aus deinem EmailJS Dashboard.
+
 # Lisa Pink - Portfolio Website
 
 Eine moderne, elegante Portfolio-Website für Lisa Pink, entwickelt mit React und Vite. Die Website präsentiert ihre berufliche Laufbahn, Qualifikationen und Persönlichkeit in einem ansprechenden, beige/hellen Design.

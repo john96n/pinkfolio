@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Linkedin, Send, Clock, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
@@ -15,17 +16,42 @@ const Contact = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate form submission
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
+
+    const {
+      VITE_EMAILJS_PUBLIC_KEY = 'YQmfenKpG63W9XvlJ',
+      VITE_EMAILJS_SERVICE_ID = 'service_v5rkswa',
+      VITE_EMAILJS_TEMPLATE_ID = 'template_qt194b2'
+    } = import.meta.env;
+
+    if (!VITE_EMAILJS_PUBLIC_KEY || !VITE_EMAILJS_SERVICE_ID || !VITE_EMAILJS_TEMPLATE_ID) {
+      console.error('EmailJS Konfiguration fehlt. Bitte .env Variablen setzen.');
+      alert('E-Mail-Versand ist noch nicht konfiguriert. Bitte EmailJS-Keys in .env eintragen.');
+      return;
+    }
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      };
+
+      await emailjs.send(
+        VITE_EMAILJS_SERVICE_ID,
+        VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        { publicKey: VITE_EMAILJS_PUBLIC_KEY }
+      );
+
+      setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+    } catch (err) {
+      console.error('EmailJS Fehler:', err);
+      alert('Leider ist beim Versenden ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+    }
   };
 
   const handleChange = (e) => {
